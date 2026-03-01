@@ -139,17 +139,5 @@ Provide similar structure for:
 - `problem_id → PROBLEM.problem_id`  
 **Unique Constraints:** `UQ (document_id, problem_id)`  
 
----
 
-Repeat similar format for:
-- DOCUMENT_MEDICATION
-- DOCUMENT_ALLERGY
 
----
-
-# Formatting Notes
-
-- Keep data types consistent.
-- Make nullability explicit.
-- Use concrete examples.
-- Keep definitions concise.

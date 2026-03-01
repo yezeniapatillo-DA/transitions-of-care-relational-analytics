@@ -1,6 +1,5 @@
 # Data Dictionary
 
-# Data Dictionary
 
 This document defines table structure, grain, constraints, and column-level metadata for the **Transitions of Care Relational Analytics** schema.
 

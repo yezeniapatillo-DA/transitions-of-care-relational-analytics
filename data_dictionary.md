@@ -49,6 +49,8 @@ This document defines table structure, grain, constraints, and column-level meta
 
 ### Columns
 
+### Columns
+
 | Column                     | Type     | Null     | Constraints | Definition         | Example
 |----------------------------|----------|----------|--------------------------------|-----------
 | encounter_id               | INT      | NOT NULL | PK         | Surrogate encounter identifier | 2001 |
@@ -75,6 +77,8 @@ This document defines table structure, grain, constraints, and column-level meta
 
 ### Columns
 
+### Columns
+
 | Column                     | Type     | Null     | Constraints | Definition         | Example
 |----------------------------|----------|----------|----------------------------------|-----------
 | document_id                | INT      | NOT NULL | PK          | Surrogate identifier | 3001 |
@@ -98,6 +102,8 @@ This document defines table structure, grain, constraints, and column-level meta
 - `document_id → DOCUMENT.document_id`
 - `assigned_provider_id → PROVIDER.provider_id` (nullable)  
 **Unique Constraints:** `UQ (document_id, task_description, due_date)`  
+
+### Columns
 
 ### Columns
 

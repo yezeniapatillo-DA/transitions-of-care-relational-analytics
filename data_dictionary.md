@@ -138,5 +138,41 @@ Provide similar structure for:
 - `problem_id → PROBLEM.problem_id`  
 **Unique Constraints:** `UQ (document_id, problem_id)`  
 
+## TABLE: DOCUMENT_MEDICATION
+
+**Purpose:** Links documents to documented medications (many-to-many).  
+**Grain:** One row represents one association between a document and a medication entry.  
+**Primary Key:** `document_medication_id`  
+**Foreign Keys:**
+- `document_id → DOCUMENT.document_id`
+- `medication_id → MEDICATION.medication_id`  
+**Unique Constraints:** `UQ (document_id, medication_id)`
+
+### Columns
+
+| Column | Type | Null | Constraints | Definition |
+|---|---|---|---|---|
+| document_medication_id | INT | NOT NULL | PK | Surrogate identifier |
+| document_id | INT | NOT NULL | FK | Linked document |
+| medication_id | INT | NOT NULL | FK | Referenced medication |
+| med_list_type_code | VARCHAR | NOT NULL |  | Context of medication list |
+
+## TABLE: DOCUMENT_ALLERGY
+
+**Purpose:** Links documents to documented allergies (many-to-many).  
+**Grain:** One row represents one association between a document and an allergy entry.  
+**Primary Key:** `document_allergy_id`  
+**Foreign Keys:**
+- `document_id → DOCUMENT.document_id`
+- `allergy_id → ALLERGY.allergy_id`  
+**Unique Constraints:** `UQ (document_id, allergy_id)`
+
+### Columns
+
+| Column | Type | Null | Constraints | Definition |
+|---|---|---|---|---|
+| document_allergy_id | INT | NOT NULL | PK | Surrogate identifier |
+| document_id | INT | NOT NULL | FK | Linked document |
+| allergy_id | INT | NOT NULL | FK | Referenced allergy |
 
 

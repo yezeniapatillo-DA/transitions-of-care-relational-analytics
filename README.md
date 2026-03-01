@@ -1,5 +1,5 @@
-# transitions-of-care-relational-analytics
-Transitions of Care Relational Analytics
+# Transitions of Care Relational Analytics
+
 Overview
 This repository contains a normalized relational database model designed to support workflow and documentation analytics in transitions-of-care processes. The schema enforces referential integrity, controlled vocabularies, and composite uniqueness constraints to ensure reliable analytical outputs.
 The model was engineered to support time-windowed queries, reconciliation comparisons, and task lifecycle tracking.

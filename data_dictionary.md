@@ -51,15 +51,15 @@ This document defines table structure, grain, constraints, and column-level meta
 
 ### Columns
 
-| Column                     | Type     | Null     | Constraints | Definition         | Example
-|----------------------------|----------|----------|--------------------------------|-----------
-| encounter_id               | INT      | NOT NULL | PK         | Surrogate encounter identifier | 2001 |
-| encounter_number           | VARCHAR  | NOT NULL | UQ         | Unique encounter identifier | ENC-000234 |
-| patient_id                 | INT      | NOT NULL | FK         | Associated patient | 1001 |
-| encounter_type             | VARCHAR  | NOT NULL |            | Visit classification | OUTPATIENT |
-| start_datetime             | DATETIME | NOT NULL |            | Encounter start timestamp | 2026-03-01 10:00 |
-| end_datetime               | DATETIME | NULL     |            | Encounter end timestamp | 2026-03-01 11:00 |
-| discharge_disposition_code | VARCHAR  | NULL     |            | Discharge outcome classification | HOME |
+| Column | Type | Null | Constraints | Definition | Example |
+|---|---|---|---|---|---|
+| encounter_id | INT | NOT NULL | PK | Surrogate encounter identifier | 2001 |
+| encounter_number | VARCHAR | NOT NULL | UQ | Unique encounter identifier | ENC-000234 |
+| patient_id | INT | NOT NULL | FK | Associated patient | 1001 |
+| encounter_type | VARCHAR | NOT NULL |  | Visit classification | OUTPATIENT |
+| start_datetime | DATETIME | NOT NULL |  | Encounter start timestamp | 2026-03-01 10:00 |
+| end_datetime | DATETIME | NULL |  | Encounter end timestamp | 2026-03-01 11:00 |
+| discharge_disposition_code | VARCHAR | NULL |  | Discharge outcome classification | HOME |
 
 ---
 

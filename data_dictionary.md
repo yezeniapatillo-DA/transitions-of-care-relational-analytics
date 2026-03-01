@@ -23,8 +23,6 @@ This document defines table structure, grain, constraints, and column-level meta
 
 ### Columns
 
-### Columns
-
 | Column          | Type     | Null     | Constraints | Definition | Example
 |-----------------|----------|----------|------------|------------|-----------
 | patient_id      | INT      | NOT NULL | PK         | Surrogate identifier |1001 |
@@ -47,7 +45,6 @@ This document defines table structure, grain, constraints, and column-level meta
 **Foreign Keys:** `patient_id → PATIENT.patient_id`  
 **Unique Constraints:** `UQ (encounter_number)`  
 
-### Columns
 
 ### Columns
 
@@ -75,21 +72,20 @@ This document defines table structure, grain, constraints, and column-level meta
 - `document_type_id → DOCUMENT_TYPE.document_type_id`  
 **Unique Constraints:** `UQ (document_identifier)`  
 
-### Columns
 
 ### Columns
 
-| Column                     | Type     | Null     | Constraints | Definition         | Example
-|----------------------------|----------|----------|----------------------------------|-----------
-| document_id                | INT      | NOT NULL | PK          | Surrogate identifier | 3001 |
-| patient_id                 | INT      | NOT NULL | FK          | Associated patient | 1001 |
-| encounter_id               | INT      | NOT NULL | FK          | Related encounter | 2001 |
-| provider_id                | INT      | NOT NULL | FK          | Authoring provider | 501 |
-| document_type_id           | INT      | NOT NULL | FK          | Classification identifier | 2 |
-| document_identifier        | VARCHAR  | NOT NULL | UQ          | External document ID | DOC-2026-0193 |
-| authored_datetime          | DATETIME | NOT NULL |             | Author timestamp | 2026-03-01 10:30 |
-| status_code                | VARCHAR  | NOT NULL |             | Workflow status | FINAL |
-| narrative_text             | TEXT     | NULL     |             | Unstructured content | — |
+| Column | Type | Null | Constraints | Definition | Example |
+|---|---|---|---|---|---|
+| document_id | INT | NOT NULL | PK | Surrogate identifier | 3001 |
+| patient_id | INT | NOT NULL | FK | Associated patient | 1001 |
+| encounter_id | INT | NOT NULL | FK | Related encounter | 2001 |
+| provider_id | INT | NOT NULL | FK | Authoring provider | 501 |
+| document_type_id | INT | NOT NULL | FK | Classification identifier | 2 |
+| document_identifier | VARCHAR | NOT NULL | UQ | External document ID | DOC-2026-0193 |
+| authored_datetime | DATETIME | NOT NULL |  | Author timestamp | 2026-03-01 10:30 |
+| status_code | VARCHAR | NOT NULL |  | Workflow status | FINAL |
+| narrative_text | TEXT | NULL |  | Unstructured content | — |
 
 ---
 
@@ -103,19 +99,18 @@ This document defines table structure, grain, constraints, and column-level meta
 - `assigned_provider_id → PROVIDER.provider_id` (nullable)  
 **Unique Constraints:** `UQ (document_id, task_description, due_date)`  
 
-### Columns
 
 ### Columns
 
-| Column                     | Type     | Null     | Constraints | Definition         | Example
-|----------------------------|----------|----------|----------------------------------|-----------
-| task_id                    | INT      | NOT NULL | PK          | Surrogate task identifier | 4001 |
-| document_id                | INT      | NOT NULL | FK          | Source document | 3001 |
-| assigned_provider_id       | INT      | NULL     | FK          | Provider responsible | 501 |
-| task_description           | VARCHAR  | NOT NULL |             | Description of action | Schedule follow-up |
-| due_date                   | DATE     | NOT NULL |             | Required completion date | 2026-03-15 |
-| completion_status_code     | VARCHAR  | NOT NULL |             | Status indicator | INCOMPLETE |
-| completed_datetime         | DATETIME | NULL     |             | Completion timestamp | 2026-03-10 09:00 |
+| Column | Type | Null | Constraints | Definition | Example |
+|---|---|---|---|---|---|
+| task_id | INT | NOT NULL | PK | Surrogate task identifier | 4001 |
+| document_id | INT | NOT NULL | FK | Source document | 3001 |
+| assigned_provider_id | INT | NULL | FK | Provider responsible | 501 |
+| task_description | VARCHAR | NOT NULL |  | Description of action | Schedule follow-up |
+| due_date | DATE | NOT NULL |  | Required completion date | 2026-03-15 |
+| completion_status_code | VARCHAR | NOT NULL |  | Status indicator | INCOMPLETE |
+| completed_datetime | DATETIME | NULL |  | Completion timestamp | 2026-03-10 09:00 |
 
 ---
 

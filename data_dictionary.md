@@ -1,16 +1,16 @@
 # Data Dictionary
 
 Data Dictionary
-This document defines table structure, grain, constraints, and column-level metadata for the Transitions of Care Relational Analytics schema.
-Core Entities
-TABLE: PATIENT
-Purpose: Stores demographic identity information.
-Grain: One row represents one unique patient record.
-Primary Key: patient_id
-Unique Constraints: UQ mrn
-Business Rules:
-•	MRN must be globally unique.
-•	Each patient may participate in multiple encounters and documents.
+<br>This document defines table structure, grain, constraints, and column-level metadata for the Transitions of Care Relational Analytics schema.
+<br>Core Entities
+<br>TABLE: PATIENT
+<br>Purpose: Stores demographic identity information.
+<br>Grain: One row represents one unique patient record.
+<br>Primary Key: patient_id
+<br>Unique Constraints: UQ mrn
+<br>Business Rules:
+<br>•	MRN must be globally unique.
+<br>•	Each patient may participate in multiple encounters and documents.
 
 Columns
 Column	Type	Null	Constraints	Definition	Example

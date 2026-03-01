@@ -23,16 +23,19 @@ This document defines table structure, grain, constraints, and column-level meta
 
 ### Columns
 
-| Column | Type | Null | Constraints | Definition | Example |
-|---|---|---|---|---|---|
-| patient_id | INT | NOT NULL | PK | Surrogate unique identifier | 1001 |
-| mrn | VARCHAR | NOT NULL | UQ | Medical record number | MRN-445892 |
-| given_name | VARCHAR | NOT NULL |  | Patient first name | Jane |
-| family_name | VARCHAR | NOT NULL |  | Patient last name | Doe |
-| birth_date | DATE | NOT NULL |  | Date of birth | 1990-04-12 |
-| sex_at_birth | VARCHAR | NOT NULL |  | Biological sex | F |
-| race_code | VARCHAR | NULL |  | Race classification | 2106-3 |
-| ethnicity_code | VARCHAR | NULL |  | Ethnicity classification | 2186-5 |
+### Columns
+
+| Column          | Type     | Null     | Constraints | Definition | Example
+|-----------------|----------|----------|------------|------------|-----------
+| patient_id      | INT      | NOT NULL | PK         | Surrogate identifier |1001 |
+| mrn             | VARCHAR  | NOT NULL | UQ         | Medical record number | MRN-445892 |
+| given_name      | VARCHAR  | NOT NULL |            | First name | Jane |
+| family_name     | VARCHAR  | NOT NULL |            | Last name | Doe |
+| birth_date      | DATE     | NOT NULL |            | Date of birth | 1990-04-12 |
+| sex_at_birth    | VARCHAR  | NOT NULL |            | Biological sex | F |
+| race_code       | VARCHAR  | NULL     |            | Race code | 2106-3 |
+| ethnicity_code  | VARCHAR  | NULL     |            | Ethnicity code | 2186-5 |
+
 
 ---
 
@@ -46,15 +49,15 @@ This document defines table structure, grain, constraints, and column-level meta
 
 ### Columns
 
-| Column | Type | Null | Constraints | Definition | Example |
-|---|---|---|---|---|---|
-| encounter_id | INT | NOT NULL | PK | Surrogate encounter identifier | 2001 |
-| encounter_number | VARCHAR | NOT NULL | UQ | Unique encounter identifier | ENC-000234 |
-| patient_id | INT | NOT NULL | FK | Associated patient | 1001 |
-| encounter_type | VARCHAR | NOT NULL |  | Visit classification | OUTPATIENT |
-| start_datetime | DATETIME | NOT NULL |  | Encounter start timestamp | 2026-03-01 10:00 |
-| end_datetime | DATETIME | NULL |  | Encounter end timestamp | 2026-03-01 11:00 |
-| discharge_disposition_code | VARCHAR | NULL |  | Discharge outcome classification | HOME |
+| Column                     | Type     | Null     | Constraints | Definition         | Example
+|----------------------------|----------|----------|--------------------------------|-----------
+| encounter_id               | INT      | NOT NULL | PK         | Surrogate encounter identifier | 2001 |
+| encounter_number           | VARCHAR  | NOT NULL | UQ         | Unique encounter identifier | ENC-000234 |
+| patient_id                 | INT      | NOT NULL | FK         | Associated patient | 1001 |
+| encounter_type             | VARCHAR  | NOT NULL |            | Visit classification | OUTPATIENT |
+| start_datetime             | DATETIME | NOT NULL |            | Encounter start timestamp | 2026-03-01 10:00 |
+| end_datetime               | DATETIME | NULL     |            | Encounter end timestamp | 2026-03-01 11:00 |
+| discharge_disposition_code | VARCHAR  | NULL     |            | Discharge outcome classification | HOME |
 
 ---
 
@@ -72,17 +75,17 @@ This document defines table structure, grain, constraints, and column-level meta
 
 ### Columns
 
-| Column | Type | Null | Constraints | Definition | Example |
-|---|---|---|---|---|---|
-| document_id | INT | NOT NULL | PK | Surrogate identifier | 3001 |
-| patient_id | INT | NOT NULL | FK | Associated patient | 1001 |
-| encounter_id | INT | NOT NULL | FK | Related encounter | 2001 |
-| provider_id | INT | NOT NULL | FK | Authoring provider | 501 |
-| document_type_id | INT | NOT NULL | FK | Classification identifier | 2 |
-| document_identifier | VARCHAR | NOT NULL | UQ | External document ID | DOC-2026-0193 |
-| authored_datetime | DATETIME | NOT NULL |  | Author timestamp | 2026-03-01 10:30 |
-| status_code | VARCHAR | NOT NULL |  | Workflow status | FINAL |
-| narrative_text | TEXT | NULL |  | Unstructured content | — |
+| Column                     | Type     | Null     | Constraints | Definition         | Example
+|----------------------------|----------|----------|----------------------------------|-----------
+| document_id                | INT      | NOT NULL | PK          | Surrogate identifier | 3001 |
+| patient_id                 | INT      | NOT NULL | FK          | Associated patient | 1001 |
+| encounter_id               | INT      | NOT NULL | FK          | Related encounter | 2001 |
+| provider_id                | INT      | NOT NULL | FK          | Authoring provider | 501 |
+| document_type_id           | INT      | NOT NULL | FK          | Classification identifier | 2 |
+| document_identifier        | VARCHAR  | NOT NULL | UQ          | External document ID | DOC-2026-0193 |
+| authored_datetime          | DATETIME | NOT NULL |             | Author timestamp | 2026-03-01 10:30 |
+| status_code                | VARCHAR  | NOT NULL |             | Workflow status | FINAL |
+| narrative_text             | TEXT     | NULL     |             | Unstructured content | — |
 
 ---
 
@@ -98,15 +101,15 @@ This document defines table structure, grain, constraints, and column-level meta
 
 ### Columns
 
-| Column | Type | Null | Constraints | Definition | Example |
-|---|---|---|---|---|---|
-| task_id | INT | NOT NULL | PK | Surrogate task identifier | 4001 |
-| document_id | INT | NOT NULL | FK | Source document | 3001 |
-| assigned_provider_id | INT | NULL | FK | Provider responsible | 501 |
-| task_description | VARCHAR | NOT NULL |  | Description of action | Schedule follow-up |
-| due_date | DATE | NOT NULL |  | Required completion date | 2026-03-15 |
-| completion_status_code | VARCHAR | NOT NULL |  | Status indicator | INCOMPLETE |
-| completed_datetime | DATETIME | NULL |  | Completion timestamp | 2026-03-10 09:00 |
+| Column                     | Type     | Null     | Constraints | Definition         | Example
+|----------------------------|----------|----------|----------------------------------|-----------
+| task_id                    | INT      | NOT NULL | PK          | Surrogate task identifier | 4001 |
+| document_id                | INT      | NOT NULL | FK          | Source document | 3001 |
+| assigned_provider_id       | INT      | NULL     | FK          | Provider responsible | 501 |
+| task_description           | VARCHAR  | NOT NULL |             | Description of action | Schedule follow-up |
+| due_date                   | DATE     | NOT NULL |             | Required completion date | 2026-03-15 |
+| completion_status_code     | VARCHAR  | NOT NULL |             | Status indicator | INCOMPLETE |
+| completed_datetime         | DATETIME | NULL     |             | Completion timestamp | 2026-03-10 09:00 |
 
 ---
 

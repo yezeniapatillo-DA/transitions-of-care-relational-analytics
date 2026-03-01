@@ -175,4 +175,124 @@ Provide similar structure for:
 | document_id | INT | NOT NULL | FK | Linked document |
 | allergy_id | INT | NOT NULL | FK | Referenced allergy |
 
+## TABLE: PROVIDER
+
+**Purpose:** Stores provider identity and attributes used for authorship, assignment, and care team membership.  
+**Grain:** One row represents one unique provider record.  
+**Primary Key:** `provider_id`  
+**Unique Constraints:** `UQ (npi)`  
+
+### Columns
+
+| Column | Type | Null | Constraints | Definition |
+|---|---|---|---|---|
+| provider_id | INT | NOT NULL | PK | Surrogate provider identifier |
+| npi | VARCHAR | NOT NULL | UQ | National Provider Identifier |
+| given_name | VARCHAR | NOT NULL |  | Provider first name |
+| family_name | VARCHAR | NOT NULL |  | Provider last name |
+| specialty_code | VARCHAR | NULL |  | Specialty classification code |
+| organization_name | VARCHAR | NULL |  | Affiliated organization name |
+
+## TABLE: DOCUMENT_TYPE
+
+**Purpose:** Defines allowable document classifications used by DOCUMENT.  
+**Grain:** One row represents one document type definition.  
+**Primary Key:** `document_type_id`  
+**Unique Constraints:** `UQ (document_type_code)`  
+
+### Columns
+
+| Column | Type | Null | Constraints | Definition |
+|---|---|---|---|---|
+| document_type_id | INT | NOT NULL | PK | Surrogate identifier |
+| document_type_code | VARCHAR | NOT NULL | UQ | Document type code |
+| document_type_display | VARCHAR | NOT NULL |  | Human-readable label |
+
+## TABLE: PROBLEM
+
+**Purpose:** Stores standardized problem concepts referenced by documents.  
+**Grain:** One row represents one unique standardized problem concept.  
+**Primary Key:** `problem_id`  
+**Unique Constraints:** `UQ (problem_code)`  
+
+### Columns
+
+| Column | Type | Null | Constraints | Definition |
+|---|---|---|---|---|
+| problem_id | INT | NOT NULL | PK | Surrogate identifier |
+| problem_code | VARCHAR | NOT NULL | UQ | Standardized problem code |
+| problem_display | VARCHAR | NOT NULL |  | Problem display name |
+| vocabulary_name | VARCHAR | NOT NULL |  | Source vocabulary (e.g., SNOMED, ICD-10) |
+
+## TABLE: MEDICATION
+
+**Purpose:** Stores standardized medication concepts referenced by documents.  
+**Grain:** One row represents one unique standardized medication concept.  
+**Primary Key:** `medication_id`  
+**Unique Constraints:** `UQ (medication_code)`  
+
+### Columns
+
+| Column | Type | Null | Constraints | Definition |
+|---|---|---|---|---|
+| medication_id | INT | NOT NULL | PK | Surrogate identifier |
+| medication_code | VARCHAR | NOT NULL | UQ | Standardized medication code |
+| medication_display | VARCHAR | NOT NULL |  | Medication display name |
+| vocabulary_name | VARCHAR | NOT NULL |  | Source vocabulary (e.g., RxNorm) |
+| route_code | VARCHAR | NULL |  | Route of administration code |
+
+## TABLE: ALLERGY
+
+**Purpose:** Stores standardized allergy/substance concepts referenced by documents.  
+**Grain:** One row represents one unique allergy/substance concept.  
+**Primary Key:** `allergy_id`  
+**Unique Constraints:** `UQ (substance_code)`  
+
+### Columns
+
+| Column | Type | Null | Constraints | Definition |
+|---|---|---|---|---|
+| allergy_id | INT | NOT NULL | PK | Surrogate identifier |
+| substance_code | VARCHAR | NOT NULL | UQ | Standardized substance code |
+| substance_display | VARCHAR | NOT NULL |  | Substance display name |
+| reaction_description | VARCHAR | NULL |  | Documented reaction text |
+
+## TABLE: CARE_TEAM
+
+**Purpose:** Represents a named care team associated to a patient over a time window.  
+**Grain:** One row represents one care team instance for one patient.  
+**Primary Key:** `careteam_id`  
+**Foreign Keys:** `patient_id → PATIENT.patient_id`  
+
+### Columns
+
+| Column | Type | Null | Constraints | Definition |
+|---|---|---|---|---|
+| careteam_id | INT | NOT NULL | PK | Surrogate identifier |
+| patient_id | INT | NOT NULL | FK | Associated patient |
+| careteam_name | VARCHAR | NOT NULL |  | Care team name/label |
+| start_date | DATE | NOT NULL |  | Team start date |
+| end_date | DATE | NULL |  | Team end date (NULL = active) |
+
+## TABLE: CARE_TEAM_MEMBER
+
+**Purpose:** Links providers to care teams with role and time window.  
+**Grain:** One row represents one provider membership period on one care team.  
+**Primary Key:** `careteam_member_id`  
+**Foreign Keys:**
+- `careteam_id → CARE_TEAM.careteam_id`
+- `provider_id → PROVIDER.provider_id`  
+**Unique Constraints:** `UQ (careteam_id, provider_id, start_date)`  
+
+### Columns
+
+| Column | Type | Null | Constraints | Definition |
+|---|---|---|---|---|
+| careteam_member_id | INT | NOT NULL | PK | Surrogate identifier |
+| careteam_id | INT | NOT NULL | FK | Associated care team |
+| provider_id | INT | NOT NULL | FK | Associated provider |
+| role_code | VARCHAR | NOT NULL |  | Role on the care team |
+| start_date | DATE | NOT NULL |  | Membership start date |
+| end_date | DATE | NULL |  | Membership end date (NULL = active) |
+
 

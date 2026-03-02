@@ -22,16 +22,16 @@ This document defines table structure, grain, constraints, and column-level meta
 
 ### Columns
 
-| Column          | Type     | Null     | Constraints | Definition | Example
-|-----------------|----------|----------|------------|------------|-----------
-| patient_id      | INT      | NOT NULL | PK         | Surrogate identifier |1001 |
-| mrn             | VARCHAR  | NOT NULL | UQ         | Medical record number | MRN-445892 |
-| given_name      | VARCHAR  | NOT NULL |            | First name | Jane |
-| family_name     | VARCHAR  | NOT NULL |            | Last name | Doe |
-| birth_date      | DATE     | NOT NULL |            | Date of birth | 1990-04-12 |
-| sex_at_birth    | VARCHAR  | NOT NULL |            | Biological sex | F |
-| race_code       | VARCHAR  | NULL     |            | Race code | 2106-3 |
-| ethnicity_code  | VARCHAR  | NULL     |            | Ethnicity code | 2186-5 |
+| Column | Type | Null | Constraints | Definition | Example |
+|---|---|---|---|---|---|
+| patient_id | INT | NOT NULL | PK | Surrogate identifier | 1001 |
+| mrn | VARCHAR | NOT NULL | UQ | Medical record number | MRN-445892 |
+| given_name | VARCHAR | NOT NULL |  | First name | Jane |
+| family_name | VARCHAR | NOT NULL |  | Last name | Doe |
+| birth_date | DATE | NOT NULL |  | Date of birth | 1990-04-12 |
+| sex_at_birth | VARCHAR | NOT NULL |  | Biological sex | F |
+| race_code | VARCHAR | NULL |  | Race code | 2106-3 |
+| ethnicity_code | VARCHAR | NULL |  | Ethnicity code | 2186-5 |
 
 
 ---
@@ -110,19 +110,6 @@ This document defines table structure, grain, constraints, and column-level meta
 | due_date | DATE | NOT NULL |  | Required completion date | 2026-03-15 |
 | completion_status_code | VARCHAR | NOT NULL |  | Status indicator | INCOMPLETE |
 | completed_datetime | DATETIME | NULL |  | Completion timestamp | 2026-03-10 09:00 |
-
----
-
-# Vocabulary & Reference Tables
-
-Provide similar structure for:
-- PROVIDER
-- CARE_TEAM
-- CARE_TEAM_MEMBER
-- DOCUMENT_TYPE
-- PROBLEM
-- MEDICATION
-- ALLERGY
 
 ---
 

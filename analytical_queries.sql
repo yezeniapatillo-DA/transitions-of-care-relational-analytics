@@ -75,4 +75,12 @@ WHERE
     AND e.discharge_disposition_code IS NOT NULL
     AND e.end_datetime >= (CURRENT_DATE - INTERVAL '30 days')
     AND (
-       
+        t.assigned_provider_id IS NULL
+        OR t.completion_status_code <> 'COMPLETED'
+    )
+GROUP BY
+    e.encounter_id,
+    e.encounter_number,
+    e.end_datetime
+ORDER BY
+    e.end_datetime DESC;

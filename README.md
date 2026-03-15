@@ -17,7 +17,7 @@ Grain Definitions<br>
 DOCUMENT<br>
 One row represents one authored clinical document for a single patient during a single encounter.<br>
 FOLLOW_UP_TASK<br>
-One row represents one discrete follow-up action linked to exactly one document and optionally assigned to a provider.<br>
+One row represents one discrete follow-up action linked to exactly one document and optionally assigned to a provider.<br><br>
 Core Entities<br>
 •	PATIENT<br>
 •	ENCOUNTER<br>
@@ -32,18 +32,18 @@ Reference Entities<br>
 Junction Tables<br>
 •	DOCUMENT_PROBLEM<br>
 •	DOCUMENT_MEDICATION<br>
-•	DOCUMENT_ALLERGY<br>
+•	DOCUMENT_ALLERGY<br><br>
 Design Decisions<br>
 Normalization<br>
 Tables are structured to third normal form (3NF) to eliminate redundant storage and maintain clean relational integrity.<br>
 Controlled Identifiers<br>
-Business identifiers (MRN, NPI, encounter_number, document_identifier, problem_code, medication_code) are enforced with UNIQUE constraints.<br>
+Business identifiers (MRN, NPI, encounter_number, document_identifier, problem_code, medication_code) are enforced with UNIQUE constraints.<br><br>
 Many-to-Many Relationships<br>
 Junction tables enforce composite uniqueness constraints to prevent duplicate document-to-concept associations.<br>
-Lifecycle State Modeling<br>
+Lifecycle State Modeling<br><br>
 Nullable fields explicitly represent workflow state:<br>
 •	assigned_provider_id may be NULL (unassigned tasks)<br>
-•	end_date and completed_datetime may be NULL for active records<br>
+•	end_date and completed_datetime may be NULL for active records<br><br>
 Data Integrity Controls<br>
 •	All foreign keys enforced<br>
 •	Composite uniqueness constraints applied to junction tables<br>

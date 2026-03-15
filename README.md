@@ -2,7 +2,7 @@
 
 Overview<br>
 This repository contains a normalized relational database model designed to support workflow and documentation analytics in transitions-of-care processes. The schema enforces referential integrity, controlled vocabularies, and composite uniqueness constraints to ensure reliable analytical outputs.<br>
-The model was engineered to support time-windowed queries, reconciliation comparisons, and task lifecycle tracking.<br>
+The model was engineered to support time-windowed queries, reconciliation comparisons, and task lifecycle tracking.<br><br>
 Project Objective<br>
 Design a relational schema capable of answering structured operational questions across patient encounters, authored documentation, and follow-up workflows.<br>
 Validate integrity through constraint enforcement and explicit handling of nullable lifecycle states.

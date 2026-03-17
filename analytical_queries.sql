@@ -46,11 +46,11 @@ WHERE
     -- Discharged in the past 30 days
     e.end_datetime IS NOT NULL
     AND e.discharge_disposition_code IS NOT NULL
-    AND e.end_datetime >= (CURRENT_DATE - INTERVAL '30 days')
+    AND e.end_datetime >= '2024-11-01'
     -- Task is incomplete OR unassigned
     AND (
         t.assigned_provider_id IS NULL
-        OR t.completion_status_code <> 'COMPLETED'
+        OR t.completion_status_code <> 'complete'
     )
 ORDER BY
     e.end_datetime DESC,
@@ -64,7 +64,7 @@ SELECT
     e.end_datetime AS discharge_datetime,
     COUNT(*) AS outstanding_task_count,
     SUM(CASE WHEN t.assigned_provider_id IS NULL THEN 1 ELSE 0 END) AS unassigned_task_count,
-    SUM(CASE WHEN t.completion_status_code <> 'COMPLETED' THEN 1 ELSE 0 END) AS incomplete_task_count
+    SUM(CASE WHEN t.completion_status_code <> 'complete' THEN 1 ELSE 0 END) AS incomplete_task_count
 FROM encounter e
 JOIN document d
     ON d.encounter_id = e.encounter_id
@@ -73,10 +73,10 @@ JOIN follow_up_task t
 WHERE
     e.end_datetime IS NOT NULL
     AND e.discharge_disposition_code IS NOT NULL
-    AND e.end_datetime >= (CURRENT_DATE - INTERVAL '30 days')
+    AND e.end_datetime >= '2024-11-01'
     AND (
         t.assigned_provider_id IS NULL
-        OR t.completion_status_code <> 'COMPLETED'
+        OR t.completion_status_code <> 'complete'
     )
 GROUP BY
     e.encounter_id,

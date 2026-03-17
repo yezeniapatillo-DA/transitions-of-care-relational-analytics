@@ -84,3 +84,87 @@ GROUP BY
     e.end_datetime
 ORDER BY
     e.end_datetime DESC;
+
+============================================================
+-- Use Case 2
+-- For a given patient, which documents show inconsistencies between
+-- the discharge medication list and medication lists recorded in
+-- later outpatient encounters?
+============================================================
+    
+-- Query 2A: Medications on discharge documents not present in later outpatient documents
+SELECT
+    p.patient_id,
+    p.mrn,
+    p.given_name,
+    p.family_name,
+    d_dc.document_id AS discharge_document_id,
+    d_dc.authored_datetime AS discharge_datetime,
+    m.medication_id,
+    m.medication_code,
+    m.medication_display
+FROM patient p
+JOIN encounter e_dc
+    ON e_dc.patient_id = p.patient_id
+JOIN document d_dc
+    ON d_dc.encounter_id = e_dc.encounter_id
+JOIN document_medication dm_dc
+    ON dm_dc.document_id = d_dc.document_id
+    AND dm_dc.med_list_type_code = 'discharge'
+JOIN medication m
+    ON m.medication_id = dm_dc.medication_id
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM encounter e_op
+    JOIN document d_op
+        ON d_op.encounter_id = e_op.encounter_id
+    JOIN document_medication dm_op
+        ON dm_op.document_id = d_op.document_id
+        AND dm_op.med_list_type_code = 'outpatient'
+    JOIN medication m_op
+        ON m_op.medication_id = dm_op.medication_id
+    WHERE e_op.patient_id = p.patient_id
+    AND d_op.authored_datetime > d_dc.authored_datetime
+    AND m_op.medication_id = m.medication_id
+)
+ORDER BY
+    p.patient_id,
+    d_dc.authored_datetime;
+
+-- ============================================================
+-- Use Case 3
+-- Which providers produce documents with the highest frequency of
+-- missing or uncoded problem entries, grouped by document type?
+-- ============================================================
+
+-- Query 3A: Provider-level frequency of missing or uncoded problem entries
+SELECT
+    pr.provider_id,
+    pr.npi,
+    pr.given_name AS provider_given_name,
+    pr.family_name AS provider_family_name,
+    pr.specialty_code,
+    dt.document_type_display,
+    COUNT(d.document_id) AS total_documents,
+    SUM(CASE WHEN dp.document_problem_id IS NULL THEN 1 ELSE 0 END) AS missing_problem_count,
+    ROUND(
+        SUM(CASE WHEN dp.document_problem_id IS NULL THEN 1 ELSE 0 END) * 100.0
+        / COUNT(d.document_id), 2
+    ) AS missing_problem_pct
+FROM provider pr
+JOIN document d
+    ON d.provider_id = pr.provider_id
+JOIN document_type dt
+    ON dt.document_type_id = d.document_type_id
+LEFT JOIN document_problem dp
+    ON dp.document_id = d.document_id
+GROUP BY
+    pr.provider_id,
+    pr.npi,
+    pr.given_name,
+    pr.family_name,
+    pr.specialty_code,
+    dt.document_type_display
+ORDER BY
+    missing_problem_pct DESC,
+    total_documents DESC;

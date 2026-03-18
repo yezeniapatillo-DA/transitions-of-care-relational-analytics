@@ -85,12 +85,12 @@ GROUP BY
 ORDER BY
     e.end_datetime DESC;
 
-============================================================
+-- ============================================================
 -- Use Case 2
 -- For a given patient, which documents show inconsistencies between
 -- the discharge medication list and medication lists recorded in
 -- later outpatient encounters?
-============================================================
+-- ============================================================
     
 -- Query 2A: Medications on discharge documents not present in later outpatient documents
 SELECT

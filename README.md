@@ -1,56 +1,78 @@
 # Transitions of Care Relational Analytics
 
-Overview<br>
-This repository contains a normalized relational database model designed to support workflow and documentation analytics in transitions-of-care processes. The schema enforces referential integrity, controlled vocabularies, and composite uniqueness constraints to ensure reliable analytical outputs.<br>
-The model was engineered to support time-windowed queries, reconciliation comparisons, and task lifecycle tracking.<br><br>
-Project Objective<br>
-Design a relational schema capable of answering structured operational questions across patient encounters, authored documentation, and follow-up workflows.<br>
-Validate integrity through constraint enforcement and explicit handling of nullable lifecycle states.
-<br><br>
-Core Analytical Use Cases<br>
-1.	Identify discharge-related follow-up tasks that remain incomplete or unassigned within 30 days.<br>
-2.	Detect medication discrepancies across documentation contexts (discharge vs. outpatient).<br>
-3.	Analyze frequency distributions of documented problems by encounter type.<br><br>
-Data Model Overview<br>
-The model follows an event-based documentation design.<br><br>
-Grain Definitions<br>
-DOCUMENT<br>
-One row represents one authored clinical document for a single patient during a single encounter.<br>
-FOLLOW_UP_TASK<br>
-One row represents one discrete follow-up action linked to exactly one document and optionally assigned to a provider.<br><br>
-Core Entities<br>
-•	PATIENT<br>
-•	ENCOUNTER<br>
-•	DOCUMENT<br>
-•	FOLLOW_UP_TASK<br>
-•	PROVIDER<br><br>
-Reference Entities<br>
-•	DOCUMENT_TYPE<br>
-•	PROBLEM<br>
-•	MEDICATION<br>
-•	ALLERGY<br><br>
-Junction Tables<br>
-•	DOCUMENT_PROBLEM<br>
-•	DOCUMENT_MEDICATION<br>
-•	DOCUMENT_ALLERGY<br><br>
-Design Decisions<br>
-Normalization<br>
-Tables are structured to third normal form (3NF) to eliminate redundant storage and maintain clean relational integrity.<br>
-Controlled Identifiers<br>
-Business identifiers (MRN, NPI, encounter_number, document_identifier, problem_code, medication_code) are enforced with UNIQUE constraints.<br><br>
-Many-to-Many Relationships<br>
-Junction tables enforce composite uniqueness constraints to prevent duplicate document-to-concept associations.<br>
-Lifecycle State Modeling<br><br>
-Nullable fields explicitly represent workflow state:<br>
-•	assigned_provider_id may be NULL (unassigned tasks)<br>
-•	end_date and completed_datetime may be NULL for active records<br><br>
-Data Integrity Controls<br>
-•	All foreign keys enforced<br>
-•	Composite uniqueness constraints applied to junction tables<br>
-•	No orphan records permitted<br>
-•	Referential consistency maintained across all event relationships<br><br>
-Repository Structure<br>
-•	schema.sql — Data definition language (DDL)<br>
-•	analytical_queries.sql — Use-case query logic<br>
-•	ERD.png — Entity-relationship diagram<br>
-•	data_dictionary.md — Column-level metadata
+## Overview
+This repository contains a normalized relational database model designed to support workflow and documentation analytics in transitions-of-care processes. The schema enforces referential integrity, controlled vocabularies, and composite uniqueness constraints to ensure reliable analytical outputs.
+
+The model was engineered to support time-windowed queries, reconciliation comparisons, and task lifecycle tracking.
+
+## Project Objective
+- Design a relational schema capable of answering structured operational questions across patient encounters, authored documentation, and follow-up workflows.
+- Validate integrity through constraint enforcement and explicit handling of nullable lifecycle states.
+
+## Core Analytical Use Cases
+
+**1. Identify discharge-related follow-up tasks that remain incomplete or unassigned within 30 days.**
+
+![Query 1A Results](query_outputs/1A.png)
+![Query 1B Results](query_outputs/1B.png)
+
+**2. Detect medication discrepancies across documentation contexts (discharge vs. outpatient).**
+
+![Query 2A Results](query_outputs/2A.png)
+
+**3. Analyze frequency distributions of documented problems by encounter type.**
+
+![Query 3A Results](query_outputs/3A.png)
+
+## Data Model Overview
+The model follows an event-based documentation design.
+
+### Grain Definitions
+- **DOCUMENT** — One row represents one authored clinical document for a single patient during a single encounter.
+- **FOLLOW_UP_TASK** — One row represents one discrete follow-up action linked to exactly one document and optionally assigned to a provider.
+
+### Core Entities
+- PATIENT
+- ENCOUNTER
+- DOCUMENT
+- FOLLOW_UP_TASK
+- PROVIDER
+
+### Reference Entities
+- DOCUMENT_TYPE
+- PROBLEM
+- MEDICATION
+- ALLERGY
+
+### Junction Tables
+- DOCUMENT_PROBLEM
+- DOCUMENT_MEDICATION
+- DOCUMENT_ALLERGY
+
+## Design Decisions
+
+### Normalization
+Tables are structured to third normal form (3NF) to eliminate redundant storage and maintain clean relational integrity.
+
+### Controlled Identifiers
+Business identifiers (MRN, NPI, encounter_number, document_identifier, problem_code, medication_code) are enforced with UNIQUE constraints.
+
+### Many-to-Many Relationships
+Junction tables enforce composite uniqueness constraints to prevent duplicate document-to-concept associations.
+
+### Lifecycle State Modeling
+Nullable fields explicitly represent workflow state:
+- `assigned_provider_id` may be NULL (unassigned tasks)
+- `end_date` and `completed_datetime` may be NULL for active records
+
+## Data Integrity Controls
+- All foreign keys enforced
+- Composite uniqueness constraints applied to junction tables
+- No orphan records permitted
+- Referential consistency maintained across all event relationships
+
+## Repository Structure
+- `schema.sql` — Data definition language (DDL)
+- `analytical_queries.sql` — Use-case query logic
+- `ERD.png` — Entity-relationship diagram
+- `data_dictionary.md` — Column-level metadata

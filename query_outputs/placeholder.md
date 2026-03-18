@@ -1,1 +1,0 @@
-Query Output Screenshots

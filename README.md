@@ -1,5 +1,7 @@
 # Transitions of Care Relational Analytics
 
+*All data in this project is synthetic and contains no real patient information.
+
 ## Overview
 This repository contains a normalized relational database model designed to support workflow and documentation analytics in transitions-of-care processes. The schema enforces referential integrity, controlled vocabularies, and composite uniqueness constraints to ensure reliable analytical outputs.
 
@@ -37,6 +39,8 @@ The model follows an event-based documentation design.
 - DOCUMENT
 - FOLLOW_UP_TASK
 - PROVIDER
+- CARE_TEAM
+- CARE_TEAM_MEMBER
 
 ### Reference Entities
 - DOCUMENT_TYPE
@@ -74,5 +78,5 @@ Nullable fields explicitly represent workflow state:
 ## Repository Structure
 - `schema.sql` — Data definition language (DDL)
 - `analytical_queries.sql` — Use-case query logic
-- `ERD.png` — Entity-relationship diagram
+- `Patient_ERD.png` — Entity-relationship diagram
 - `data_dictionary.md` — Column-level metadata

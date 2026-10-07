@@ -5,9 +5,9 @@
 -- Assumptions:
 -- 1) "Discharged" encounter = ENCOUNTER.end_datetime IS NOT NULL
 --    AND ENCOUNTER.discharge_disposition_code IS NOT NULL
--- 2) "Past 30 days" is relative to CURRENT_DATE
+-- 2) "Past 30 days" is measured from a fixed reference date (2024-11-01) to match the sample data
 -- 3) A task is considered "unassigned" when FOLLOW_UP_TASK.assigned_provider_id IS NULL
--- 4) A task is considered "incomplete" when completion_status_code <> 'COMPLETED'
+-- 4) A task is considered "incomplete" when completion_status_code <> 'complete'
 --    (Adjust this list if your system uses different status codes.)
 
 -- ============================================================
